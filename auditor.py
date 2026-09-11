@@ -6,7 +6,6 @@ while True:
     inventory = input("Please Enter Stock quantity: ")
 
     if inventory.lower() == "quit":
-        print(f"Total inventory: {total_inventory}, rejected entries: {rejected_inventory}")
         break
 
     elif not inventory.isdigit():
@@ -14,3 +13,9 @@ while True:
         print("Please enter a valid number.")
         continue
 
+    elif int(inventory) < 0:
+        rejected_inventory += 1
+        print("Please enter a valid number greater than or equal to 0.")
+        continue
+
+    total_inventory += int(inventory)
