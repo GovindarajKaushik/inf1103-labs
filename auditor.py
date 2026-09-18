@@ -29,6 +29,10 @@ def process_delivery(total_inventory, inventory):
     total_inventory += inventory
     return total_inventory
 
+def calculate_tax(amount):
+    return amount * 0.08
+
+
 while True:
     # inventory = input("Please Enter Stock quantity: ")
 
