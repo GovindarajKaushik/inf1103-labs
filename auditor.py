@@ -40,7 +40,12 @@ while True:
     #     print("Please enter a valid number greater than or equal to 0.")
     #     continue
     inventory = get_valid_input()
-
+    if inventory == "quit":
+        print(f"Total inventory: {total_inventory}, rejected entries: {rejected_inventory}")
+        break
+    if inventory == "error":
+        rejected_inventory += 1
+        continue
     total_inventory += int(inventory)
 
     if total_inventory > 500:
