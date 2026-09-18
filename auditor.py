@@ -32,6 +32,8 @@ def process_delivery(total_inventory, inventory):
 def calculate_tax(amount):
     return amount * 0.08
 
+def generate_report(total_inventory, failed_attempts):
+    print(f"Total inventory: {total_inventory}, rejected entries: {rejected_inventory}")
 
 while True:
     # inventory = input("Please Enter Stock quantity: ")
@@ -51,7 +53,7 @@ while True:
     #     continue
     inventory = get_valid_input()
     if inventory == "quit":
-        print(f"Total inventory: {total_inventory}, rejected entries: {rejected_inventory}")
+        generate_report(total_inventory, rejected_inventory)
         break
     if inventory == "error":
         rejected_inventory += 1
