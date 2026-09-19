@@ -1,6 +1,5 @@
 # Lab 03 
 
-rejected_inventory = 0
 total_inventory = 0
 
 # Handles the prompt, handles input validation, and returns a valid integer or a "quit" signal
@@ -26,7 +25,7 @@ def process_delivery(total_inventory, inventory):
 
 # takes a delivery amount and returns the tax of 10% of specific delivery
 def calculate_tax(amount):
-    return amount * 0.08
+    return amount * 0.10
 
 # prints out final summary
 def generate_report(total_inventory, rejected_inventory):
@@ -40,7 +39,7 @@ while True:
         break
     # count rejected attempts
     if inventory == "error":
-        rejected_inventory += 1
+        rejected_inventory + 1
         continue
     # count total_inventory
     total_inventory = process_delivery(total_inventory, inventory)
