@@ -18,17 +18,16 @@ def get_valid_input():
     return int(inventory)
 
 # Calculates the new total inventory and processes it
-def process_delivery(total_inventory, inventory):
-    total_inventory += inventory
-    return total_inventory
+def process_delivery(current_total,new_value):
+    return current_total + new_value
 
 # takes a delivery amount and returns the tax of 10% of specific delivery
 def calculate_tax(amount):
     return amount * 0.10
 
 # prints out final summary
-def generate_report(total_inventory, rejected_inventory):
-    print(f"Total inventory: {total_inventory}, rejected entries: {rejected_inventory}")
+def generate_report(total_units,failed_attempts):
+    print(f"Total inventory: {total_units}, rejected entries: {failed_attempts}")
 
 # main function to remove global variables
 def main():
