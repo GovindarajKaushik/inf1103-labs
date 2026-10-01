@@ -43,28 +43,17 @@ def get_valid_input():
 # Create new order list (array)
 def save_inventory(inventory_list, file_name):
     with open(file_name, "r+") as inventory_file:
-        if inventory_file.read() == "":
-            inventory_file.write(str(inventory_list))
-        else:
-            inventory_file.seek(0)
-            lines = inventory_file.readlines()
-            # remove \n
-            fixed_lines = []
-            fixed_lines.append(lines[-1].strip())
+        is_empty = inventory_file.read() == ""
+        inventory_file.seek(0, 2)  
 
-            # Get the last index to add to new order
-            last_entry = fixed_lines[0]
-            last_id = int(last_entry.split(",")[0])
-            new_id = last_id + 1
-            # New order List
-            new_order_list = []
-            new_order_list.append(str(new_id))
-            for inventory in inventory_list:
-                new_order_list.append(inventory)
-            formatted_order = ", ".join(new_order_list)
+        for order in inventory_list:
+            formatted_order = ", ".join(order)
 
-            # Write new order into inventory.txt
-            inventory_file.write("\n" + formatted_order)
+            if is_empty:
+                inventory_file.write(formatted_order)
+                is_empty = False
+            else:
+                inventory_file.write("\n" + formatted_order)
 
 
 # Calculates the new total inventory and processes it
@@ -84,31 +73,49 @@ def main():
     total_inventory = 0
     rejected_inventory = 0
     current_orders = []
+    next_id = 1001
+    
     # Printing the previously saved inventory file
     print("Current Orders:\n")
     existing_order_list = load_inventory("inventory.txt")
     for order in existing_order_list:
         print(order)
+        # Update next_id based on existing orders
+        if order:
+            existing_id = int(order.split(",")[0])
+            next_id = existing_id + 1
 
     while True:
         inventory = get_valid_input()
-        #quit the loop and prints summary
+        
+        # Quit and save
         if inventory == "quit":
-            generate_report(total_inventory, rejected_inventory)
+            save_inventory(current_orders, "inventory.txt")
+            print("\nOrder successfully saved to inventory.txt")
             break
-        #count rejected attempts
+        
+        # Rejected attempts
         if inventory == "error":
             rejected_inventory += 1
             continue
-        # Keeping track of current orders
-        current_orders.append(inventory)
-        # New order added
-        cleaned_new_order = [item.strip() for item in inventory]
-        print(f"New order added:\n{cleaned_new_order}")
-        # print warning and break loop when total inventory is more than 500
+        
+        # Create order with ID (no spaces)
+        new_order = [str(next_id)] + inventory
+        formatted_order = ",".join(new_order)
+        
+        # Print new order
+        print(f"New Order Added:")
+        print(formatted_order)
+        
+        # Track order
+        current_orders.append(new_order)
+        next_id += 1
+        
+        # Alert if over 500
         if total_inventory > 500:
             print(f"ALERT! Total inventory exceeds 500 units. Currently at: {total_inventory}")
             break
+
 
 
 main()
