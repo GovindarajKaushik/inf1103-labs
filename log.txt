@@ -1,0 +1,120 @@
+commit 79dda5d6619fadd23fbf1a90ce8bf718f1d42330
+Author: Kaushik <govindarajkaushik24@gmail.com>
+Date:   Thu Oct 1 20:12:04 2026 +0800
+
+    fixed saved inventory
+
+commit 05ea330bfc5fc7b74f1e8c23e8fcb20f45f578f4
+Author: Kaushik <govindarajkaushik24@gmail.com>
+Date:   Thu Oct 1 19:50:09 2026 +0800
+
+    fixed load inventory
+
+commit 2a18b074149b7ce5acbef7188834fde3cefb2a14
+Author: Kaushik <govindarajkaushik24@gmail.com>
+Date:   Thu Oct 1 19:31:18 2026 +0800
+
+    Created tracking functionality
+
+commit 1be987fc011bd4ba4957e825e80ba7757a947c1e
+Author: Kaushik <govindarajkaushik24@gmail.com>
+Date:   Fri Sep 25 11:25:59 2026 +0800
+
+    implemented working load_inventory() function
+
+commit 7525bbd2aa97b31b3f9833ec7479d7bdf2d212bb
+Merge: b1eccb5 ab381bd
+Author: Kaushik <govindarajkaushik24@gmail.com>
+Date:   Sat Sep 19 16:02:32 2026 +0800
+
+    merging lab2 with lab3
+
+commit b1eccb5b75c81219b0ee0a61895a824dedb2c6fd
+Author: Kaushik <govindarajkaushik24@gmail.com>
+Date:   Sat Sep 19 15:51:38 2026 +0800
+
+    renaming function variables to match lab requirements
+
+commit 6346c6620d86adea1bfddd5f59f701fd11505056
+Author: Kaushik <govindarajkaushik24@gmail.com>
+Date:   Sat Sep 19 15:46:39 2026 +0800
+
+    Created a main() function to remove global variables
+
+commit 695c0baf3a79d737ca3c8419ed62f1f10bb96053
+Author: Kaushik <govindarajkaushik24@gmail.com>
+Date:   Sat Sep 19 15:35:28 2026 +0800
+
+    Calculate tax fixed to calculate 10% tax
+
+commit 734504d6c24a30f7a9ef3a9c3523786d86aa5e43
+Author: Kaushik <govindarajkaushik24@gmail.com>
+Date:   Fri Sep 18 11:56:47 2026 +0800
+
+    implement calculate_tax into the loop and added comments
+
+commit 02c1cacb183abbb022e5cd612445584b91713b21
+Author: Kaushik <govindarajkaushik24@gmail.com>
+Date:   Fri Sep 18 11:50:56 2026 +0800
+
+    Created generate_report function and implemented into loop
+
+commit 9617dae56c8add80b4f6d68b52e298748e34ec1b
+Author: Kaushik <govindarajkaushik24@gmail.com>
+Date:   Fri Sep 18 11:48:14 2026 +0800
+
+    created calculate_tax function
+
+commit d2ca0ac1c96d2320e1eaec3526fddf25247dc4be
+Author: Kaushik <govindarajkaushik24@gmail.com>
+Date:   Fri Sep 18 11:45:58 2026 +0800
+
+    added in function process_delivery to find total inventory and implemented into loop
+
+commit ae5459ccc638299915e9712d239d22b06fd5ed5e
+Author: Kaushik <govindarajkaushik24@gmail.com>
+Date:   Fri Sep 18 11:41:29 2026 +0800
+
+    added in rejected inventory and quit to display total inventory and rejected inventory
+
+commit 96fd363076611ca39fd4b29509b8b1be353e769f
+Author: Kaushik <govindarajkaushik24@gmail.com>
+Date:   Fri Sep 18 11:35:08 2026 +0800
+
+    added get_valid_input() function inside loop
+
+commit ab381bd47240a9d8a2012c165d9f9c3f13ff0893
+Author: Kaushik <kaushik20004@gmail.com>
+Date:   Fri Sep 11 11:37:09 2026 +0800
+
+    triggers overstock alert and reporting
+
+commit 2bcf97fdc2a51ed5b8e5e939e77d83f0d33e4d30
+Author: Kaushik <kaushik20004@gmail.com>
+Date:   Fri Sep 11 11:35:54 2026 +0800
+
+    Enforce business rules and manage state
+
+commit 1f48b01eb555cff62eada50f9e5638c0765b67b2
+Author: Kaushik <kaushik20004@gmail.com>
+Date:   Fri Sep 11 11:34:19 2026 +0800
+
+    Handle invalid input
+
+commit 394d07777f2d198dd96ad9f2b24ad01bd4201f93
+Author: Kaushik <kaushik20004@gmail.com>
+Date:   Fri Sep 11 11:32:53 2026 +0800
+
+    while loop asking user for stock quantity
+
+commit 2d2f71d1fbee5d2497a3d04aa74fe64fa6563b6c
+Author: Kaushik <kaushik20004@gmail.com>
+Date:   Fri Sep 11 11:29:14 2026 +0800
+
+    initialize inventory to zero
+
+commit 9226e2558403010a0dee49e9383956f8c734e62c
+Author: Kaushik <kaushik20004@gmail.com>
+Date:   Fri Sep 11 10:14:10 2026 +0800
+
+    first commit
