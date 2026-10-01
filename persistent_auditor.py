@@ -2,19 +2,20 @@
 
 
 # load inventory (read text file)
-def load_inventory(filename):
+def load_inventory(file_name):
     try:
-        inventory_file = open(filename, "r")
-        return inventory_file.read()
+        with open(file_name, "r") as inventory_file:
+            return inventory_file.read()
     except FileNotFoundError:
-        inventory_file = open(filename, "x")
-        return inventory_file.read()
+        with open(file_name, "w") as inventory_file:
+            pass
+        return ""
 
 
 # Handles the prompt, handles input validation, and returns a valid integer or a "quit" signal
 def get_valid_input():
-    inventory_list = list()
-    product_name = input("Please Enter Product Name: ")
+    inventory_list = []
+    product_name = input("\nPlease Enter Product Name: ")
     if product_name.lower() == "quit":
         return "quit"
     inventory = input("Please Enter Stock quantity: ")
@@ -33,8 +34,36 @@ def get_valid_input():
     elif not isinstance(product_name, str):
         print("Please enter a valid product name.")
         return "error"
-    inventory_list.append((str(product_name), int(inventory)))
+    inventory_list.append(str(product_name))
+    inventory_list.append(str(inventory))
     return inventory_list
+
+# Create new order list (array)
+def save_inventory(inventory_list, file_name):
+    with open(file_name, "r+") as inventory_file:
+        if inventory_file.read() == "":
+            inventory_file.write(str(inventory_list))
+        else:
+            inventory_file.seek(0)
+            lines = inventory_file.readlines()
+            # remove \n
+            fixed_lines = []
+            fixed_lines.append(lines[-1].strip())
+
+            # Get the last index to add to new order
+            last_entry = fixed_lines[0]
+            last_id = int(last_entry.split(",")[0])
+            new_id = last_id + 1
+            # New order List
+            new_order_list = []
+            new_order_list.append(str(new_id))
+            for inventory in inventory_list:
+                new_order_list.append(inventory)
+            formatted_order = ", ".join(new_order_list)
+
+            # Write new order into inventory.txt
+            inventory_file.write("\n" + formatted_order)
+
 
 # Calculates the new total inventory and processes it
 def process_delivery(current_total,new_value):
@@ -52,11 +81,16 @@ def generate_report(total_units,failed_attempts):
 def main():
     total_inventory = 0
     rejected_inventory = 0
-    print("Current Inventory:\n")
-    print(load_inventory("inventory.txt") + "\n")
+    current_orders = []
+    # Printing the previously saved inventory file
+    print("Current Orders:\n")
+    with open("inventory.txt", "r") as inventory_file:
+        inventory_list = inventory_file.readlines()
+    cleaned_order_list = [line.strip() for line in inventory_list] 
+    for order in cleaned_order_list:
+        print(order)
     while True:
         inventory = get_valid_input()
-        print(inventory)
         #quit the loop and prints summary
         if inventory == "quit":
             generate_report(total_inventory, rejected_inventory)
@@ -65,10 +99,8 @@ def main():
         if inventory == "error":
             rejected_inventory += 1
             continue
-        #calculate tax 10% for each delivery
-        # tax = calculate_tax(inventory)
-        #count total_inventory
-        # total_inventory = process_delivery(total_inventory, inventory)
+        # Keeping track of current orders
+        current_orders.append(inventory)
         # print warning and break loop when total inventory is more than 500
         if total_inventory > 500:
             print(f"ALERT! Total inventory exceeds 500 units. Currently at: {total_inventory}")
