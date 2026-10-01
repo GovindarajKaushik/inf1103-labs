@@ -5,11 +5,13 @@
 def load_inventory(file_name):
     try:
         with open(file_name, "r") as inventory_file:
-            return inventory_file.read()
+            inventory_list = inventory_file.readlines()
+            cleaned_order_list = [line.strip() for line in inventory_list] 
+            return cleaned_order_list
     except FileNotFoundError:
         with open(file_name, "w") as inventory_file:
             pass
-        return ""
+        return []
 
 
 # Handles the prompt, handles input validation, and returns a valid integer or a "quit" signal
@@ -84,11 +86,10 @@ def main():
     current_orders = []
     # Printing the previously saved inventory file
     print("Current Orders:\n")
-    with open("inventory.txt", "r") as inventory_file:
-        inventory_list = inventory_file.readlines()
-    cleaned_order_list = [line.strip() for line in inventory_list] 
-    for order in cleaned_order_list:
+    existing_order_list = load_inventory("inventory.txt")
+    for order in existing_order_list:
         print(order)
+
     while True:
         inventory = get_valid_input()
         #quit the loop and prints summary
@@ -101,6 +102,9 @@ def main():
             continue
         # Keeping track of current orders
         current_orders.append(inventory)
+        # New order added
+        cleaned_new_order = [item.strip() for item in inventory]
+        print(f"New order added:\n{cleaned_new_order}")
         # print warning and break loop when total inventory is more than 500
         if total_inventory > 500:
             print(f"ALERT! Total inventory exceeds 500 units. Currently at: {total_inventory}")
