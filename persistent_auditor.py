@@ -40,7 +40,7 @@ def get_valid_input():
     inventory_list.append(str(inventory))
     return inventory_list
 
-# Create new order list (array)
+# Create new order list
 def save_inventory(inventory_list, file_name):
     with open(file_name, "r+") as inventory_file:
         is_empty = inventory_file.read() == ""
@@ -56,17 +56,6 @@ def save_inventory(inventory_list, file_name):
                 inventory_file.write("\n" + formatted_order)
 
 
-# Calculates the new total inventory and processes it
-def process_delivery(current_total,new_value):
-    return current_total + new_value
-
-# takes a delivery amount and returns the tax of 10% of specific delivery
-def calculate_tax(amount):
-    return amount * 0.10
-
-# prints out final summary
-def generate_report(total_units,failed_attempts):
-    print(f"Total inventory: {total_units}, rejected entries: {failed_attempts}")
 
 # main function to remove global variables
 def main():
