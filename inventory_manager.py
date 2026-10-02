@@ -5,9 +5,9 @@ import json
 
 # get input
 def get_valid_input():
-    option_number = int(input("Enter Option: "))
-    if not isinstance(option_number, int):
-        print("Please enter a valid option number.")
+    try: 
+        option_number = int(input("Enter Option: "))
+    except ValueError:
         return "error"
     return option_number
 
@@ -26,13 +26,17 @@ def add_product(inventory, new_product):
         return True
 
 # Update json stock locally first before saving to json
-def update_stock():
+def update_stock(product_ID, product_stock):
     return None
 
 
 # search products 
-def search_product():
-    return None
+def search_product(product_ID, inventory):
+    if product_ID in inventory:
+        return inventory[product_ID]
+    else:
+        print("Product not found.")
+        return None
 
 # Display all inventory
 def display_all(inventory):
@@ -42,8 +46,6 @@ def display_all(inventory):
         print(f"ID:{product_id} | Name: {product_details['Name']} | Price: ${product_details['Price']:.2f} | Stock: {product_details['Stock']}")
     print("-" * 50 + "\n")
 
-    
-    
 
 # load the inventory if inventory.json exists else create inventory.json
 def load_inventory(inventory_file):
@@ -87,7 +89,7 @@ def main():
     while True:
         # user input
         option_number = get_valid_input()
-        # option 1 Display all
+        # option 1: Display all
         if option_number == 1:
             display_all(inventory)
         # Option 2: Add Product
@@ -105,6 +107,20 @@ def main():
             # Add product
             if add_product(inventory, new_product):
                 print("Product added successfully!")
+        # Option 3: Update Stock 
+
+        # Option 4: Search Product
+        if option_number == 4:
+            print("\nSearch Product")
+            product_id  = str(input("Enter Product ID: "))
+            found_product = search_product(product_id, inventory)
+            print("\nProduct Found")
+            print("-" * 30)
+            print(f"ID: {product_id}")
+            for items in found_product.items():
+                print(f"{items[0]}: {items[1]}")
+            print("-" * 30 + "\n")
+        
         # option 6: Quit and save
         if option_number == 6:
             print("\nSaving inventory before exit...")
@@ -114,7 +130,7 @@ def main():
         
         # Rejected attempts
         if option_number == "error":
-            print("Invalid input. Please try again.")
+            print("\nInvalid input. Please try again.\n")
             continue
         
 
