@@ -26,8 +26,10 @@ def add_product(inventory, new_product):
         return True
 
 # Update json stock locally first before saving to json
-def update_stock(product_ID, product_stock):
-    return None
+def update_stock(product_ID, product_stock, inventory):
+    # update stock
+    inventory[product_ID]["Stock"] = product_stock
+    return True
 
 
 # search products 
@@ -35,7 +37,6 @@ def search_product(product_ID, inventory):
     if product_ID in inventory:
         return inventory[product_ID]
     else:
-        print("Product not found.")
         return None
 
 # Display all inventory
@@ -108,19 +109,36 @@ def main():
             if add_product(inventory, new_product):
                 print("Product added successfully!")
         # Option 3: Update Stock 
+        if option_number == 3:
+            print("\nUpdate Stock")
+            product_id = input("Enter Product ID: ")
+            # search for stock
+            found_product = search_product(product_id, inventory)
+            # update stock if product is found
+            if found_product is not None:
+                print(f"\nProduct found: \nName: {found_product['Name']}\nCurrent Stock: {found_product['Stock']}\n")
+                new_stock = int(input("Enter new stock quantity: "))
+                if update_stock(product_id, new_stock, inventory):
+                    print("\nStock updated successfully!\n")
+            else:
+                print("\nProduct not found.")
+
 
         # Option 4: Search Product
         if option_number == 4:
             print("\nSearch Product")
             product_id  = str(input("Enter Product ID: "))
             found_product = search_product(product_id, inventory)
-            print("\nProduct Found")
-            print("-" * 30)
-            print(f"ID: {product_id}")
-            for items in found_product.items():
-                print(f"{items[0]}: {items[1]}")
-            print("-" * 30 + "\n")
-        
+            if found_product is not None:
+                print("\nProduct Found")
+                print("-" * 30)
+                print(f"ID: {product_id}")
+                for items in found_product.items():
+                    print(f"{items[0]}: {items[1]}")
+                print("-" * 30 + "\n")
+            else:
+                print("\nProduct not found.\n")
+
         # option 6: Quit and save
         if option_number == 6:
             print("\nSaving inventory before exit...")
