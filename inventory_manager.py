@@ -64,8 +64,14 @@ def load_inventory(inventory_file):
             json.dump({}, f)
 
 # save local json data to inventory.json file
-def save_inventory(inventory_file):
-    return None
+def save_inventory(inventory_file, inventory):
+    try:
+        with open(inventory_file, 'w') as f:
+            json.dump(inventory, f, indent=4)
+    except Exception as e:
+        print(f"Error saving inventory: {e}")
+        return "error"
+    return True
 
 
 
@@ -123,7 +129,6 @@ def main():
             else:
                 print("\nProduct not found.")
 
-
         # Option 4: Search Product
         if option_number == 4:
             print("\nSearch Product")
@@ -138,7 +143,12 @@ def main():
                 print("-" * 30 + "\n")
             else:
                 print("\nProduct not found.\n")
-
+        # Option 5: Save inventory to file
+        if option_number == 5:
+            print("\nSaving inventory...")
+            if save_inventory("inventory.json", inventory):
+                print("Inventory saved successfully to inventory.json\n")
+            
         # option 6: Quit and save
         if option_number == 6:
             print("\nSaving inventory before exit...")
