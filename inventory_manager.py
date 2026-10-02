@@ -69,7 +69,6 @@ def save_inventory(inventory_file, inventory):
         with open(inventory_file, 'w') as f:
             json.dump(inventory, f, indent=4)
     except Exception as e:
-        print(f"Error saving inventory: {e}")
         return "error"
     return True
 
@@ -148,11 +147,18 @@ def main():
             print("\nSaving inventory...")
             if save_inventory("inventory.json", inventory):
                 print("Inventory saved successfully to inventory.json\n")
+            else:
+                print("Failed to save inventory.\n")
+                continue
             
         # option 6: Quit and save
         if option_number == 6:
             print("\nSaving inventory before exit...")
-            print("Inventory saved successfully.")
+            if save_inventory("inventory.json", inventory):
+                print("Inventory saved successfully.")
+            else:
+                print("Failed to save inventory.")
+                continue
             print("\nThank you for using  the Inventory Management System.\nProgram terminated.")
             break
         
