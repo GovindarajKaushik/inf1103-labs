@@ -13,8 +13,17 @@ def get_valid_input():
 
 
 # Add products to json file
-def add_product():
-    return None
+def add_product(inventory, new_product):
+        product_id = new_product["ID"]
+        if product_id in inventory:
+            print(f"Product with ID {product_id} already exists.")
+            return False
+        inventory[product_id] = {
+            "Name": new_product["Name"],
+            "Price": new_product["Price"],
+            "Stock": new_product["Stock"]
+        }
+        return True
 
 # Update json stock locally first before saving to json
 def update_stock():
@@ -30,7 +39,7 @@ def display_all(inventory):
     print("\nCurrent Inventory:\n")
     print("-" * 50)
     for product_id, product_details in inventory.items():
-        print(f"ID:{product_id} | Name: {product_details['Name']} | Price: {product_details['Price']} | Stock: {product_details['Stock']}")
+        print(f"ID:{product_id} | Name: {product_details['Name']} | Price: ${product_details['Price']:.2f} | Stock: {product_details['Stock']}")
     print("-" * 50 + "\n")
 
     
@@ -81,7 +90,22 @@ def main():
         # option 1 Display all
         if option_number == 1:
             display_all(inventory)
-        # Quit and save
+        # Option 2: Add Product
+        if option_number == 2:
+            product_id = input("Product ID: ")
+            product_name = input("Product Name: ")
+            product_price = input("Price: ")
+            product_stock_quantity = input("Stock Quantity: ")
+            new_product = {
+                "ID": product_id,
+                "Name": product_name,
+                "Price": float(product_price),
+                "Stock": int(product_stock_quantity)
+            }
+            # Add product
+            if add_product(inventory, new_product):
+                print("Product added successfully!")
+        # option 6: Quit and save
         if option_number == 6:
             print("\nSaving inventory before exit...")
             print("Inventory saved successfully.")
