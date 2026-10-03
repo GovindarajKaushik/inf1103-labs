@@ -68,6 +68,7 @@ def load_inventory(inventory_file):
         with open(inventory_file, 'r') as f:
             check_inventory = f.read()
             if check_inventory.strip() == "":
+                print("\ninventory.json is empty. Starting with an empty inventory.\n")
                 return {}
             else:
                 print("\ninventory.json found.\nInventory loaded successfully.\n")
@@ -117,8 +118,16 @@ def main():
         # Option 2: Add Product
         elif option_number == 2:
             print("\nAdd New Product")
-            product_id = input("Product ID: ").strip().upper()
-            product_name = input("Product Name: ").strip()
+            product_id = ""
+            while product_id == "":
+                product_id = input("Product ID: ").strip().upper()
+                if product_id == "":
+                    print("Product ID cannot be empty.")
+            product_name = ""
+            while product_name == "":
+                product_name = input("Product Name: ").strip()
+                if product_name == "":
+                    print("Product Name cannot be empty.")
             product_price = get_valid_number("Price: ", float)
             product_stock_quantity = get_valid_number("Stock Quantity: ", int)
             new_product = {
@@ -156,10 +165,11 @@ def main():
                 print("\nProduct Found")
                 print("-" * 30)
                 print(f"ID: {product_id}")
-                for items in found_product.items():
-                    if items[0] == "Price":
-                        print(f"{items[0]}: ${items[1]:.2f}")
-                    print(f"{items[0]}: {items[1]}")
+                for key, value in found_product.items():
+                    if key == "Price":
+                        print(f"{key}: ${value:.2f}")
+                    else:
+                        print(f"{key}: {value}")
                 print("-" * 30 + "\n")
             else:
                 print("\nProduct not found.\n")
