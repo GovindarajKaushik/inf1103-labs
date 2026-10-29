@@ -1,6 +1,9 @@
 ﻿# Lab 05: procedural inventory management using dictionaries and functions.
 import os
 import json
+from pathlib import Path
+
+INVENTORY_FILE = Path(__file__).resolve().with_name("inventory.json")
 
 
 def get_valid_input():
@@ -79,7 +82,7 @@ def main():
     print("=" * 40)
     print("INVENTORY MANAGEMENT SYSTEM")
     print("=" * 40)
-    inventory = load_inventory("inventory.json")
+    inventory = load_inventory(INVENTORY_FILE)
     print("\n----------- MENU -----------")
     print("1. Display All Products\n2. Add Product\n3. Update Stock")
     print("4. Search Product\n5. Save Inventory\n6. Exit")
@@ -136,7 +139,7 @@ def main():
                 print("\nProduct not found.\n")
         elif option_number in (5, 6):
             print("\nSaving inventory...")
-            if not save_inventory("inventory.json", inventory):
+            if not save_inventory(INVENTORY_FILE, inventory):
                 print("Failed to save inventory.\n")
                 continue
             print("Inventory saved successfully to inventory.json\n")

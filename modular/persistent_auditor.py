@@ -1,4 +1,7 @@
 # Lab 04
+from pathlib import Path
+
+INVENTORY_FILE = Path(__file__).resolve().with_name("inventory.txt")
 
 
 # load inventory (read text file)
@@ -66,7 +69,7 @@ def main():
     
     # Printing the previously saved inventory file
     print("Current Orders:\n")
-    existing_order_list = load_inventory("inventory.txt")
+    existing_order_list = load_inventory(INVENTORY_FILE)
     for order in existing_order_list:
         print(order)
         # Update next_id based on existing orders
@@ -79,7 +82,7 @@ def main():
         
         # Quit and save
         if inventory == "quit":
-            save_inventory(current_orders, "inventory.txt")
+            save_inventory(current_orders, INVENTORY_FILE)
             print("\nOrder successfully saved to inventory.txt")
             break
         
