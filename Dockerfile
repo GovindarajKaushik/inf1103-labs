@@ -1,7 +1,7 @@
 FROM python:3.11-slim
 
-WORKDIR /app/OOP
+WORKDIR /app
 
-COPY OOP/*.py OOP/inventory.json ./
+COPY *.py inventory.json ./
 
 CMD ["python", "inventory_manager.py"]
