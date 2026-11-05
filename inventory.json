@@ -23,7 +23,7 @@
     "P004": {
         "Name": "Monitor",
         "Price": 299.99,
-        "Stock": 20,
+        "Stock": 8,
         "Type": "physical",
         "Weight": 4.5
     },
