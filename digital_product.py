@@ -18,6 +18,5 @@ class DigitalProduct(Product):
         return self.__download_size
 
     def display_information(self) -> None:
-        print(f"ID: {self.product_id} | Name: {self.name} | "
-              f"Price: ${self.price:.2f} | Stock: {self.stock}")
+        super().display_information()
         print(f"Download size: {self.download_size:g} MB")
