@@ -1,8 +1,9 @@
-﻿"""Lab 06: command-line interface for the OOP inventory system."""
+"""Lab 7: command-line interface for physical and digital inventory."""
 import math
 from pathlib import Path
 from inventory_storage import load_inventory, save_inventory
-from product import Product
+from digital_product import DigitalProduct
+from physical_product import PhysicalProduct
 
 INVENTORY_FILE = Path(__file__).resolve().with_name("inventory.json")
 
@@ -53,10 +54,21 @@ def main():
             if inventory.search_product(product_id) is not None:
                 print(f"Product with ID {product_id} already exists.")
                 continue
+            while True:
+                product_type = input("Product type (1: Physical, 2: Digital): ").strip()
+                if product_type in ("1", "2"):
+                    break
+                print("Invalid product type. Please select 1 or 2.")
             name = get_nonempty_text("Product Name: ")
             price = get_valid_number("Price: ", float)
             stock = get_valid_number("Stock Quantity: ", int)
-            inventory.add_product(Product(product_id, name, price, stock))
+            if product_type == "1":
+                weight = get_valid_number("Weight (kg): ", float)
+                product = PhysicalProduct(product_id, name, price, stock, weight)
+            else:
+                download_size = get_valid_number("Download Size (MB): ", float)
+                product = DigitalProduct(product_id, name, price, stock, download_size)
+            inventory.add_product(product)
             print("Product added successfully!")
         elif option in (3, 4):
             product = inventory.search_product(input("Enter Product ID: "))
