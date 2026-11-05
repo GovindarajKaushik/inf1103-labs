@@ -1,8 +1,9 @@
 ﻿"""Lab 06 product model."""
+from abc import ABC, abstractmethod
 import math
 
 
-class Product:
+class Product(ABC):
     def __init__(self, product_id: str, name: str, price: float, stock: int):
         if not isinstance(product_id, str) or not product_id.strip():
             raise ValueError("Product ID cannot be empty.")
@@ -41,3 +42,8 @@ class Product:
     def display_information(self) -> None:
         print(f"ID: {self.product_id} | Name: {self.name} | "
               f"Price: ${self.price:.2f} | Stock: {self.stock}")
+
+    @abstractmethod
+    def get_fulfilment_info(self) -> str:
+        """Return how this type of product is delivered."""
+        pass
